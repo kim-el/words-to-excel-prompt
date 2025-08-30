@@ -32,14 +32,7 @@
 
 ### Phase 3: Extract Content from DOCX
 
-4. **For simple text extraction (single column)**
-   ```bash
-   unzip -p "input.docx" word/document.xml | grep -o '<w:t[^>]*>[^<]*</w:t>' | sed 's/<w:t[^>]*>//' | sed 's/<\/w:t>//' > extracted_text.txt
-   echo "Content" > output.csv
-   cat extracted_text.txt >> output.csv
-   ```
-
-5. **For table structure preservation (recommended)**
+4. **Extract tables and text with structure preservation**
    Create Python script:
    ```python
    import pandas as pd
@@ -83,7 +76,7 @@
    save_tables_to_csv(tables, "output")
    ```
 
-6. **Run the extraction script**
+5. **Run the extraction script**
    ```bash
    source doc_converter_env/bin/activate
    python extract_tables.py
@@ -91,13 +84,13 @@
 
 ### Phase 4: Verify Results
 
-7. **Check output files**
+6. **Check output files**
    ```bash
    ls -la *.csv
    head -5 output_table_1.csv
    ```
 
-8. **Read CSV with tools**
+7. **Read CSV with tools**
    - Now you can use text-based tools to read/edit the CSV files
    - Table structure is preserved with proper rows and columns
 
@@ -119,15 +112,6 @@ python extract_tables.py
 source doc_converter_env/bin/activate
 python extract_tables.py
 ```
-
-### Key Differences
-
-| Method | Text Extraction | Table Structure |
-|--------|----------------|-----------------|
-| Output | Single column | Multi-column |
-| Structure | Lost | Preserved |
-| Use Case | Simple text | Data analysis |
-| Tools | Command line | Python + pandas |
 
 ### Troubleshooting
 
